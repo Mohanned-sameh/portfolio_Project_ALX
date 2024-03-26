@@ -45,4 +45,4 @@ class PostComments(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):
-        return f"PostComments('{self.title}', '{self.date_posted}')"
+        return f"PostComments('{self.content}', '{self.date_posted}')"
