@@ -11,12 +11,12 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route("/home")
 def home():
     posts = Post.query.all()
-    return render_template("home.html", posts=posts)
+    return render_template("home.html", posts=posts, title="SocialMedia - Home")
 
 
 @app.route("/landing-page")
 def landing_page():
-    return render_template("landing-page.html")
+    return render_template("landing-page.html", title="SocialMedia - Landing Page")
 
 
 @app.route("/register", methods=["GET", "POST"])
