@@ -16,7 +16,8 @@ def home():
 
 @app.route("/landing-page")
 def landing_page():
-    return render_template("landing-page.html", title="SocialMedia - Landing Page")
+    # return render_template("landing-page.html", title="SocialMedia - Landing Page")
+    pass
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -53,9 +54,10 @@ def new_post():
 
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
 def post(post_id):
-    post = Post.query.get_or_404(post_id)
-    comments = PostComments.query.filter_by(post_id=post.id).all()
-    return render_template("post.html", post=post, comments=comments)
+    # post = Post.query.get_or_404(post_id)
+    # comments = PostComments.query.filter_by(post_id=post.id).all()
+    # return render_template("post.html", post=post, comments=comments)
+    pass
 
 
 @app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
@@ -97,6 +99,7 @@ def delete_comment(post_id, comment_id):
 
 @app.route("/user/<string:username>")
 def user_posts(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    posts = Post.query.filter_by(author=user).all()
-    return render_template("user_posts.html", posts=posts, user=user)
+    # user = User.query.filter_by(username=username).first_or_404()
+    # posts = Post.query.filter_by(author=user).all()
+    # return render_template("user_posts.html", posts=posts, user=user)
+    pass
