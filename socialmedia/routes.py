@@ -93,9 +93,7 @@ def profile():
         form.username.data = current_user.username
         form.email.data = current_user.email
     image_file = url_for("static", filename="profile_pics/" + current_user.image_file)
-    return render_template(
-        "profile.html", title="SocialMedia - profile", image_file=image_file, form=form
-    )
+    return render_template("profile.html", title="SocialMedia - profile", form=form)
 
 
 @app.route("/post/new", methods=["GET", "POST"])
