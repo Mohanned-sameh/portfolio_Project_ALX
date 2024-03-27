@@ -24,7 +24,18 @@
         {% endif %}
       </ul>
     </header>
-    {% block content %} {% endblock content %}
+    <main>
+      <div>
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul class="flash-message">
+          {% for message in messages %}
+          <li>{{message}}</li>
+          {% endfor %}
+        </ul>
+        {% endif %} {% endwith %}
+      </div>
+      {% block content %} {% endblock content %}
+    </main>
     <footer>
       <p>&copy; 2024 SocialMedia</p>
     </footer>

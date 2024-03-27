@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}
+<div class="form-container">
+  <form method="post">
+    {{form.hidden_tag()}}
+    <h2 class="label">Register</h2>
+    <div class="form-group">
+      {% if form.non_field_errors %} {% for error in form.non_field_errors %}
+      <div class="form-error">{{error}}</div>
+      {% endfor %} {% endif %}
+      <div class="form-username">{{form.username.label}}{{form.username}}</div>
+      {% if form.username.errors %} {% for error in form.username.errors %}
+      <div class="form-error">{{error}}</div>
+      {% endfor %} {% endif %}
+      <div class="form-email">{{form.email.label}}{{form.email}}</div>
+      {% if form.email.errors %} {% for error in form.email.errors %}
+      <div class="form-error">{{error}}</div>
+      {% endfor %} {% endif %}
+      <div class="form-pass">{{form.password.label}}{{form.password}}</div>
+      {% if form.password.errors %} {% for error in form.password.errors %}
+      <div class="form-error">{{error}}</div>
+      {% endfor %} {% endif %}
+      <div class="form-pass">
+        {{form.confirm_password.label}}{{form.confirm_password}}
+      </div>
+      {% if form.confirm_password.errors %} {% for error in
+      form.confirm_password.errors %}
+      <div class="form-error">{{error}}</div>
+      {% endfor %} {% endif %}
+    </div>
+    <div class="form-submit">{{form.submit}}</div>
+  </form>
+</div>
+{% endblock content %}
