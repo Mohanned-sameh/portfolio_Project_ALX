@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     comments = db.relationship(
         "PostComments", backref="author", lazy=True, cascade="all, delete-orphan"
     )
+    created_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"

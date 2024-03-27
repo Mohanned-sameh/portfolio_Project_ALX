@@ -8,7 +8,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from socialmedia.forms import (
     LoginForm,
     RegistrationForm,
-    UpdateAccountForm,
+    UpdateProfileForm,
     PostForm,
     CommentForm,
 )
@@ -39,7 +39,7 @@ def register():
         )
         db.session.add(user)
         db.session.commit()
-        flash("Your account has been created! You are now able to log in", "success")
+        flash("Your profile has been created! You are now able to log in", "success")
         return redirect(url_for("login"))
     return render_template("register.html", title="SocialMedia - Register", form=form)
 
@@ -64,11 +64,26 @@ def logout():
     return redirect(url_for("home"))
 
 
-@app.route("/account", methods=["GET", "POST"])
+@app.route("/profile", methods=["GET", "POST"])
 @login_required
-def account():
-    # TODO: Create a form for the user to update their account
-    pass
+def profile():
+    form = UpdateProfileForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash("Your profile has been updated!", "success")
+        return redirect(url_for("profile"))
+    elif request.method == "GET":
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    image_file = url_for("static", filename="profile_pics/" + current_user.image_file)
+    return render_template(
+        "profile.html", title="SocialMedia - profile", image_file=image_file, form=form
+    )
 
 
 @app.route("/post/new", methods=["GET", "POST"])

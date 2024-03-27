@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="profile-container">
+  <div class="profile-header">
+    <h2>{{current_user.username}}</h2>
+  </div>
+  <div class="profile-body">
+    <div class="profile-image">
+      <img
+        src="{{url_for('static', filename='profile_pictures/' + current_user.profile_picture)}}"
+        alt="profile"
+      />
+    </div>
+    <div class="profile-info">
+      <p><strong>Email:</strong> {{current_user.email}}</p>
+      <p>
+        <strong>Joined:</strong>
+        {{current_user.created_on.strftime('%Y-%m-%d')}}
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock content %}
