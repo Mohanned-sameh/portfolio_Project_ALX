@@ -12,7 +12,14 @@
   <body>
     <header>
       <ul>
-        <li><a href="{{url_for('home')}}">SocialMedia</a></li>
+        <li>
+          <a href="{{url_for('home')}}">
+            <img
+              src="{{url_for('static', filename='logo.png')}}"
+              style="width: 100px; height: 100px; border-radius: 50%"
+            />
+          </a>
+        </li>
       </ul>
       <ul>
         <li><a href="{{url_for('home')}}">Home</a></li>
