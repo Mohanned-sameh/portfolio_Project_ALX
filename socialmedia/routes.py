@@ -140,4 +140,3 @@ def user_posts(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = Post.query.filter_by(author=user).all()
     return render_template("user_posts.html", posts=posts, user=user)
-    pass
