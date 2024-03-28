@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from socialmedia import app, db
-from socialmedia.models import Post, PostComments
+from socialmedia.models import Post, Comment
 from flask_login import current_user, login_required
 
 
@@ -18,7 +18,7 @@ def add_new_post():
 @app.route("/post/<int:post_id>", methods=["GET"])
 def get_post_by_id(post_id):
     post = Post.query.get_or_404(post_id)
-    comments = PostComments.query.filter_by(post_id=post_id).all()
+    comments = Comment.query.filter_by(post_id=post_id).all()
     return render_template(
         "post.html", title="SocialMedia - Post", post=post, comments=comments
     )
