@@ -1,16 +1,7 @@
-
-from flask import render_template, url_for, flash, redirect, request, abort
-from socialmedia import app, db, bcrypt
-from socialmedia.models import User, Post, PostComments
-from flask_login import login_user, current_user, logout_user, login_required
-from socialmedia.forms import (
-    LoginForm,
-    RegistrationForm,
-    UpdateProfileForm,
-    PostForm,
-    CommentForm,
-)
-
+from flask import render_template, url_for, flash, redirect, request
+from socialmedia import app, db
+from socialmedia.models import Post, PostComments
+from flask_login import current_user, login_required
 
 
 @app.route("/post/new", methods=["POST"])
@@ -33,7 +24,6 @@ def get_post_by_id(post_id):
     )
 
 
-
 @app.route("/post/<int:post_id>/update", methods=["POST"])
 @login_required
 def update_post(post_id):
@@ -53,4 +43,3 @@ def delete_post(post_id):
     db.session.commit()
     flash("Your post has been deleted!", "success")
     return redirect(url_for("home"))
-

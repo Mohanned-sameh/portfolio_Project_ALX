@@ -1,16 +1,6 @@
-
-from flask import render_template, url_for, flash, redirect, request, abort
-from socialmedia import app, db, bcrypt
-from socialmedia.models import User, Post, PostComments
-from flask_login import login_user, current_user, logout_user, login_required
-from socialmedia.forms import (
-    LoginForm,
-    RegistrationForm,
-    UpdateProfileForm,
-    PostForm,
-    CommentForm,
-)
-
+from flask import render_template
+from socialmedia import app
+from socialmedia.models import Post
 
 
 @app.route("/user/<int:user_id>", methods=["GET"])
