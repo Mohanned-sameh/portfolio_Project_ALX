@@ -105,13 +105,25 @@ def profile():
 @app.route("/post/new", methods=["GET", "POST"])
 @login_required
 def new_post():
-    # TODO: Create a form for the user to create a new post
-    pass
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash("Your post has been created!", "success")
+        return redirect(url_for("home"))
+    return render_template(
+        "new_post.html", title="SocialMedia - New Post", form=form, legend="New Post"
+    )
 
 
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
 def post(post_id):
-    pass
+    post = Post.query.get_or_404(post_id)
+    comments = PostComments.query.filter_by(post_id=post_id).all()
+    return render_template(
+        "post.html", title="SocialMedia - Post", post=post, comments=comments
+    )
 
 
 @app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
