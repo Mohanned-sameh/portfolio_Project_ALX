@@ -17,8 +17,11 @@ from socialmedia.forms import (
 @app.route("/")
 @app.route("/home")
 def home():
+    form = PostForm()
     posts = Post.query.all()
-    return render_template("home.html", posts=posts, title="SocialMedia - Home")
+    return render_template(
+        "home.html", posts=posts, title="SocialMedia - Home", PostForm=form
+    )
 
 
 @app.route("/landing-page")
@@ -102,19 +105,15 @@ def profile():
     )
 
 
-@app.route("/post/new", methods=["GET", "POST"])
+@app.route("/post/new", methods=["POST"])
 @login_required
 def new_post():
-    form = PostForm()
-    if form.validate_on_submit():
-        post = Post(content=form.content.data, author=current_user)
-        db.session.add(post)
-        db.session.commit()
-        flash("Your post has been created!", "success")
-        return redirect(url_for("home"))
-    return render_template(
-        "new_post.html", title="SocialMedia - New Post", form=form, legend="New Post"
-    )
+    form = request.form["content"]
+    post = Post(content=form, author=current_user)
+    db.session.add(post)
+    db.session.commit()
+    flash("Your post has been created!", "success")
+    return redirect(url_for("home"))
 
 
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])

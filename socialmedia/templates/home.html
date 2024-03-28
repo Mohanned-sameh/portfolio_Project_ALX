@@ -1,1 +1,19 @@
-{% extends 'base.html' %} {% block content %} {% endblock content %}
+{% extends 'base.html' %} {% block content %}
+<div>
+  <form action="{{url_for('new_post')}}" method="post">
+    {{ PostForm.hidden_tag() }}
+    <h2 class="label">Create Post</h2>
+    <div class="form-group">
+      <div class="form-content">
+        {{ PostForm.content.label }}{{ PostForm.content }}
+      </div>
+      <div class="form-submit">{{ PostForm.submit }}</div>
+    </div>
+  </form>
+  <div>
+    {% for post in posts %}
+    <p>{{ post.content }}</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
