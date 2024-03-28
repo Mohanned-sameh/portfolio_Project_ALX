@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship("Post", backref="author", lazy=True)
     comments = db.relationship(
-        "PostComments", backref="author", lazy=True, cascade="all, delete-orphan"
+        "Comment", backref="author", lazy=True, cascade="all, delete-orphan"
     )
     created_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
@@ -31,7 +31,7 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     title = db.Column(db.String(100), nullable=False)
     comments = db.relationship(
-        "PostComments", backref="post", lazy=True, cascade="all, delete-orphan"
+        "Comment", backref="post", lazy=True, cascade="all, delete-orphan"
     )
     likes = db.Column(db.Integer, nullable=False, default=0)
 

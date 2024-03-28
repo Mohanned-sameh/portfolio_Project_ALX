@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 <div>
-  <form action="{{url_for('new_post')}}" method="post">
+  <form action="{{url_for('add_new_post')}}" method="post">
     {{ PostForm.hidden_tag() }}
     <h2 class="label">Create Post</h2>
     <div class="form-group">
