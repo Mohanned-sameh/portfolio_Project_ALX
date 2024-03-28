@@ -9,8 +9,8 @@ def load_user(user_id):
 
 
 class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
+    id = db.Column(db.Integer, unique=True, primary_key=True)
+    username = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default="default.jpg")
     password = db.Column(db.String(60), nullable=False)
@@ -25,10 +25,11 @@ class User(db.Model, UserMixin):
 
 
 class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
     comments = db.relationship(
         "PostComments", backref="post", lazy=True, cascade="all, delete-orphan"
     )
@@ -38,12 +39,13 @@ class Post(db.Model):
         return f"Post('{self.title}', '{self.date_posted}')"
 
 
-class PostComments(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+class Comment(db.Model):
+    id = db.Column(db.Integer, unique=True, primary_key=True, autoincrement=True)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):
-        return f"PostComments('{self.content}', '{self.date_posted}')"
+        return f"Comment('{self.content}', '{self.date_posted}')"
+

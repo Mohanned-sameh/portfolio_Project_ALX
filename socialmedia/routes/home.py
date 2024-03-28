@@ -26,11 +26,6 @@ def home():
     )
 
 
-@app.route("/landing-page")
-def landing_page():
-    # return render_template("landing-page.html", title="SocialMedia - Landing Page")
-    pass
-
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -70,7 +65,6 @@ def logout():
 
 
 def save_picture(form_picture):
-    print(form_picture)
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
@@ -105,67 +99,3 @@ def profile():
     return render_template(
         "profile.html", title="SocialMedia - Profile", image_file=image_file, form=form
     )
-
-
-@app.route("/post/new", methods=["POST"])
-@login_required
-def new_post():
-    form = request.form["content"]
-    post = Post(content=form, author=current_user)
-    db.session.add(post)
-    db.session.commit()
-    flash("Your post has been created!", "success")
-    return redirect(url_for("home"))
-
-
-@app.route("/post/<int:post_id>", methods=["GET", "POST"])
-def post(post_id):
-    post = Post.query.get_or_404(post_id)
-    comments = PostComments.query.filter_by(post_id=post_id).all()
-    return render_template(
-        "post.html", title="SocialMedia - Post", post=post, comments=comments
-    )
-
-
-@app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
-@login_required
-def update_post(post_id):
-    # TODO: Create a form for the user to update their post
-    pass
-
-
-@app.route("/post/<int:post_id>/delete", methods=["POST"])
-@login_required
-def delete_post(post_id):
-    # TODO: Implement feature for the user to delete their post
-    pass
-
-
-@app.route("/post/<int:post_id>/comment", methods=["GET", "POST"])
-@login_required
-def new_comment(post_id):
-    # TODO: Create a form for the user to create a new comment
-    pass
-
-
-@app.route(
-    "/post/<int:post_id>/comment/<int:comment_id>/update", methods=["GET", "POST"]
-)
-@login_required
-def update_comment(post_id, comment_id):
-    # TODO: Create a form for the user to update their comment
-    pass
-
-
-@app.route("/post/<int:post_id>/comment/<int:comment_id>/delete", methods=["POST"])
-@login_required
-def delete_comment(post_id, comment_id):
-    # TODO: Implement feature to delete the user comment
-    pass
-
-
-@app.route("/user/<string:username>")
-def user_posts(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    posts = Post.query.filter_by(author=user).all()
-    return render_template("user_posts.html", posts=posts, user=user)

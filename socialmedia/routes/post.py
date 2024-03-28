@@ -1,0 +1,56 @@
+
+from flask import render_template, url_for, flash, redirect, request, abort
+from socialmedia import app, db, bcrypt
+from socialmedia.models import User, Post, PostComments
+from flask_login import login_user, current_user, logout_user, login_required
+from socialmedia.forms import (
+    LoginForm,
+    RegistrationForm,
+    UpdateProfileForm,
+    PostForm,
+    CommentForm,
+)
+
+
+
+@app.route("/post/new", methods=["POST"])
+@login_required
+def add_new_post():
+    form = request.form["content"]
+    post = Post(content=form, author=current_user)
+    db.session.add(post)
+    db.session.commit()
+    flash("Your post has been created!", "success")
+    return redirect(url_for("home"))
+
+
+@app.route("/post/<int:post_id>", methods=["GET"])
+def get_post_by_id(post_id):
+    post = Post.query.get_or_404(post_id)
+    comments = PostComments.query.filter_by(post_id=post_id).all()
+    return render_template(
+        "post.html", title="SocialMedia - Post", post=post, comments=comments
+    )
+
+
+
+@app.route("/post/<int:post_id>/update", methods=["POST"])
+@login_required
+def update_post(post_id):
+    form = request.form["content"]
+    post = Post.query.get_or_404(post_id)
+    post.content = form
+    db.session.commit()
+    flash("Your post has been updated!", "success")
+    return redirect(url_for("home"))
+
+
+@app.route("/post/<int:post_id>/delete", methods=["POST"])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    db.session.delete(post)
+    db.session.commit()
+    flash("Your post has been deleted!", "success")
+    return redirect(url_for("home"))
+
