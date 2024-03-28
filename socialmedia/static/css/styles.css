@@ -4,11 +4,110 @@
   box-sizing: border-box;
 }
 
-body,
-main {
-  font-family: 'Poppins', sans-serif;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-content {
+  margin-bottom: 10px;
+}
+
+.card-link {
+  color: #2196f3;
+  text-decoration: none;
+}
+
+.card-link:hover {
+  text-decoration: underline;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #2196f3;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #1976d2;
+}
+
+.btn-primary {
+  background-color: #2196f3;
+}
+
+.btn-secondary {
+  background-color: #f44336;
+}
+
+.btn-success {
+  background-color: #4caf50;
+}
+
+.btn-warning {
+  background-color: #ff9800;
+}
+
+.btn-info {
+  background-color: #2196f3;
+}
+
+.btn-danger {
+  background-color: #f44336;
+}
+body {
+  font-family: Arial, sans-serif;
   background-color: #f5f5f5;
-  height: 100vh;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
 }
 
 .alert {
@@ -71,7 +170,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin: 20px 0;
 }
 
 .form-container form {
@@ -86,10 +185,11 @@ footer {
   margin-bottom: 20px;
 }
 
-.form-container form input {
+.form-container form input,
+.form-container form textarea {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   border: 1px solid #ddd;
 }
 
@@ -109,4 +209,39 @@ footer {
 .form-error {
   color: red;
   margin-bottom: 10px;
+}
+
+.post-form-container {
+  margin-bottom: 20px;
+}
+
+.post-form-group {
+  margin-bottom: 10px;
+}
+
+.post-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.post-content {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.post-author {
+  font-style: italic;
+  color: #888;
+}
+
+.post-submit input {
+  width: 100%;
+  padding: 10px;
+  background-color: hsl(240, 100%, 50%);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.post-submit input:hover {
+  background-color: hsl(240, 100%, 20%);
 }

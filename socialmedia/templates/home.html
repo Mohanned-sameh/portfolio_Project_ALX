@@ -1,22 +1,24 @@
 {% extends 'base.html' %} {% block content %}
-<div>
-  <form action="{{url_for('add_new_post')}}" method="post">
-    {{ PostForm.hidden_tag() }}
-    <h2>Create Post</h2>
-    <div>
-      <div>{{PostForm.title.label}}{{PostForm.title}}</div>
-      <div>{{PostForm.content.label}}{{PostForm.content}}</div>
-      <div>{{PostForm.submit}}</div>
+<div class="form-container">
+  <form method="post" action="{{url_for('add_new_post')}}">
+    {{form.hidden_tag()}}
+    <h2 class="label">New Post</h2>
+    <div class="form-group">
+      <div class="form-username">{{form.title.label}}{{form.title}}</div>
+      <div class="form-username">{{form.content.label}}{{form.content}}</div>
+      <div class="form-submit">{{form.submit}}</div>
     </div>
   </form>
-  <div>
-    {% for post in posts %}
-    <div>
-      <h3>{{ post.title }}</h3>
-      <p>{{ post.content }}</p>
-      <p>{{post.author.username}}</p>
-    </div>
-    {% endfor %}
+</div>
+<div class="container">
+  {% for post in posts %}
+  <div class="section card">
+    <h3 class="card-title">
+      <a href="" class="card-link"> {{ post.title }} </a>
+    </h3>
+    <p class="card-content">{{ post.content }}</p>
+    <p class="card-author">{{post.author.username}}</p>
   </div>
+  {% endfor %}
 </div>
 {% endblock content %}

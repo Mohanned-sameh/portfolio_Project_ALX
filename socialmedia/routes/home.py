@@ -21,7 +21,7 @@ def home():
     if posts is None:
         posts = []
     return render_template(
-        "home.html", posts=posts, title="SocialMedia - Home", PostForm=form
+        "home.html", posts=posts, title="SocialMedia - Home", form=form
     )
 
 
