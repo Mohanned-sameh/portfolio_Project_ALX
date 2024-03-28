@@ -2,18 +2,20 @@
 <div>
   <form action="{{url_for('add_new_post')}}" method="post">
     {{ PostForm.hidden_tag() }}
-    <h2 class="label">Create Post</h2>
-    <div class="form-group">
-      <div class="form-content">
-        {{ PostForm.content.label }}{{ PostForm.content }}
-      </div>
-      <div class="form-submit">{{ PostForm.submit }}</div>
+    <h2>Create Post</h2>
+    <div>
+      <div>{{PostForm.title.label}}{{PostForm.title}}</div>
+      <div>{{PostForm.content.label}}{{PostForm.content}}</div>
+      <div>{{PostForm.submit}}</div>
     </div>
   </form>
   <div>
     {% for post in posts %}
-    <p>{{ post.content }}</p>
-    <p>{{post.author}}</p>
+    <div>
+      <h3>{{ post.title }}</h3>
+      <p>{{ post.content }}</p>
+      <p>{{post.author.username}}</p>
+    </div>
     {% endfor %}
   </div>
 </div>

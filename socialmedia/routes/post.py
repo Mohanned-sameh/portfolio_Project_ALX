@@ -8,7 +8,8 @@ from flask_login import current_user, login_required
 @login_required
 def add_new_post():
     form = request.form["content"]
-    post = Post(content=form, author=current_user)
+    title = request.form["title"]
+    post = Post(content=form, author=current_user, title=title)
     db.session.add(post)
     db.session.commit()
     flash("Your post has been created!", "success")
