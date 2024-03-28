@@ -19,6 +19,8 @@ from socialmedia.forms import (
 def home():
     form = PostForm()
     posts = Post.query.all()
+    if posts is None:
+        posts = []
     return render_template(
         "home.html", posts=posts, title="SocialMedia - Home", PostForm=form
     )
