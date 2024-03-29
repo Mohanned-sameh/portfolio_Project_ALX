@@ -6,12 +6,26 @@
   <p class="card-date">Posted On: {{post.date_posted.strftime('%Y-%m-%d')}}</p>
   <hr style="margin-top: 5px" />
   <div style="display: flex; gap: 15px; margin-top: 5px">
-    <p>
-      <a href="{{url_for('like_post', post_id=post.id)}}" style="color: black">
+    <form action="{{url_for('like_post', post_id=post.id )}}" method="post">
+      <button
+        type="submit"
+        style="
+          border: none;
+          outline: none;
+          font-size: large;
+          background-color: transparent;
+        "
+      >
         👍
-      </a>
-      {{post.likes}}
-    </p>
+      </button>
+    </form>
+    {{ likes }}
+    <a
+      href="{{url_for('get_post_by_id', post_id=post.id)}}"
+      style="color: black"
+    >
+      Comment
+    </a>
   </div>
 </div>
 <div class="form-container">

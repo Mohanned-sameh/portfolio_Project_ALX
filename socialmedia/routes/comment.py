@@ -18,12 +18,23 @@ def new_comment(post_id):
 @app.route("/post/<int:post_id>/comment/<int:comment_id>/update", methods=["POST"])
 @login_required
 def update_comment(post_id, comment_id):
-    # TODO: Create a form for the user to update their comment
-    pass
+    comment = Comment.query.get_or_404(comment_id)
+    if comment.author != current_user:
+        abort(403)
+    form = request.form["content"]
+    comment.content = form
+    db.session.commit()
+    flash("Your comment has been updated!", "success")
+    return redirect(url_for("get_post_by_id", post_id=post_id))
 
 
 @app.route("/post/<int:post_id>/comment/<int:comment_id>/delete", methods=["POST"])
 @login_required
 def delete_comment(post_id, comment_id):
-    # TODO: Implement feature to delete the user comment
-    pass
+    comment = Comment.query.get_or_404(comment_id)
+    if comment.author != current_user:
+        abort(403)
+    db.session.delete(comment)
+    db.session.commit()
+    flash("Your comment has been deleted!", "success")
+    return redirect(url_for("get_post_by_id", post_id=post_id))

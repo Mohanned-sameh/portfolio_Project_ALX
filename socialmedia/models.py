@@ -19,6 +19,9 @@ class User(db.Model, UserMixin):
         "Comment", backref="author", lazy=True, cascade="all, delete-orphan"
     )
     created_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    likes = db.relationship(
+        "likes", backref="user", lazy=True, cascade="all, delete-orphan"
+    )
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
@@ -33,10 +36,21 @@ class Post(db.Model):
     comments = db.relationship(
         "Comment", backref="post", lazy=True, cascade="all, delete-orphan"
     )
-    likes = db.Column(db.Integer, nullable=False, default=0)
+    likes = db.relationship(
+        "likes", backref="post", lazy=True, cascade="all, delete-orphan"
+    )
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
+
+
+class likes(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
+
+    def __repr__(self):
+        return f"Like('{self.user_id}', '{self.post_id}')"
 
 
 class Comment(db.Model):
