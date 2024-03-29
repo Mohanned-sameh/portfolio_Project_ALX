@@ -2,6 +2,7 @@ from flask import render_template, url_for, flash, redirect, request
 from socialmedia import app, db
 from socialmedia.models import Post, Comment
 from flask_login import current_user, login_required
+from socialmedia.forms import CommentForm
 
 
 @app.route("/post/new", methods=["POST"])
@@ -18,11 +19,21 @@ def add_new_post():
 
 @app.route("/post/<int:post_id>", methods=["GET"])
 def get_post_by_id(post_id):
+    form = CommentForm()
     post = Post.query.get_or_404(post_id)
     comments = Comment.query.filter_by(post_id=post_id).all()
     return render_template(
-        "post.html", title="SocialMedia - Post", post=post, comments=comments
+        "post.html", title="SocialMedia - Post", post=post, comments=comments, form=form
     )
+
+
+@app.route("/post/<int:post_id>/like", methods=["POST", "GET"])
+@login_required
+def like_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    post.likes += 1
+    db.session.commit()
+    return redirect(url_for("get_post_by_id", post_id=post_id))
 
 
 @app.route("/post/<int:post_id>/update", methods=["POST"])
