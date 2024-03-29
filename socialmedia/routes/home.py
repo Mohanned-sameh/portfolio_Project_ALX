@@ -18,6 +18,7 @@ from socialmedia.forms import (
 def home():
     form = PostForm()
     posts = Post.query.all()
+    likes = 0
     for likes in posts:
         likes = len(likes.likes)
     if posts is None:

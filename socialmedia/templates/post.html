@@ -6,6 +6,7 @@
   <p class="card-date">Posted On: {{post.date_posted.strftime('%Y-%m-%d')}}</p>
   <hr style="margin-top: 5px" />
   <div style="display: flex; gap: 15px; margin-top: 5px">
+    {% if post.author == current_user %} {% endif %}
     <form action="{{url_for('like_post', post_id=post.id )}}" method="post">
       <button
         type="submit"
@@ -20,12 +21,38 @@
       </button>
     </form>
     {{ likes }}
-    <a
-      href="{{url_for('get_post_by_id', post_id=post.id)}}"
-      style="color: black"
+    <form
+      style="margin-left: auto"
+      action="{{url_for('update_post', post_id=post.id)}}"
+      method="post"
     >
-      Comment
-    </a>
+      <input
+        type="submit"
+        value="Update"
+        style="
+          color: black;
+          background-color: transparent;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          font-size: large;
+        "
+      />
+    </form>
+    <form action="{{url_for('delete_post', post_id=post.id)}}" , method="post">
+      <input
+        type="submit"
+        value="Delete"
+        style="
+          color: black;
+          background-color: transparent;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          font-size: large;
+        "
+      />
+    </form>
   </div>
 </div>
 <div class="form-container">
@@ -45,6 +72,45 @@
     <p class="card-content">{{ comment.content }}</p>
     <p class="card-author">By: {{ comment.author.username }}</p>
     <p>Posted On: {{post.date_posted.strftime('%Y-%m-%d')}}</p>
+    <hr style="margin-top: 5px" />
+    {% if comment.author == current_user %}
+    <div style="display: flex; gap: 10px; margin-top: 5px">
+      <form
+        action="{{url_for('update_comment', post_id=post.id, comment_id=comment.id)}}"
+        method="post"
+      >
+        <input
+          type="submit"
+          value="Update"
+          style="
+            color: black;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: large;
+          "
+        />
+      </form>
+      <form
+        action="{{url_for('delete_comment', post_id=post.id, comment_id=comment.id)}}"
+        method="post"
+      >
+        <input
+          type="submit"
+          value="Delete"
+          style="
+            color: black;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: large;
+          "
+        />
+      </form>
+    </div>
+    {% endif %}
   </div>
   {% endfor %}
 </div>
