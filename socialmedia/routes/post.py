@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, abort
 from socialmedia import app, db
 from socialmedia.models import Post, Comment, likes
 from flask_login import current_user, login_required
-from socialmedia.forms import CommentForm
+from socialmedia.forms import CommentForm, PostForm
 
 
 @app.route("/post/new", methods=["POST"])
@@ -47,19 +47,24 @@ def like_post(post_id):
     return redirect(url_for("get_post_by_id", post_id=post_id))
 
 
-@app.route("/post/<int:post_id>/update", methods=["POST"])
+@app.route("/post/<int:post_id>/update", methods=["POST", "GET"])
 @login_required
 def update_post(post_id):
+    form = PostForm()
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
-    form = request.form["content"]
-    title = request.form["title"]
-    post.content = form
-    post.title = title
-    db.session.commit()
-    flash("Your post has been updated!", "success")
-    return redirect(url_for("get_post_by_id", post_id=post_id))
+    if request.method == "POST":
+        post.content = form.content.data
+        post.title = form.title.data
+        db.session.commit()
+        flash("Your post has been updated!", "success")
+        return redirect(url_for("get_post_by_id", post_id=post_id))
+    form.content.data = post.content
+    form.title.data = post.title
+    return render_template(
+        "update_post.html", title="Update Post", form=form, post=post
+    )
 
 
 @app.route("/post/<int:post_id>/delete", methods=["POST"])

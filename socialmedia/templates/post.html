@@ -76,7 +76,7 @@
     {% if comment.author == current_user %}
     <div style="display: flex; gap: 10px; margin-top: 5px">
       <form
-        action="{{url_for('update_comment', post_id=post.id, comment_id=comment.id)}}"
+        action="{{url_for('update_comment', comment_id=comment.id)}}"
         method="post"
       >
         <input
