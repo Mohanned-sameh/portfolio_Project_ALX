@@ -60,8 +60,8 @@ def update_post(post_id):
         db.session.commit()
         flash("Your post has been updated!", "success")
         return redirect(url_for("get_post_by_id", post_id=post_id))
-    form.content.data = post.content
     form.title.data = post.title
+    form.content.data = post.content
     return render_template(
         "update_post.html", title="Update Post", form=form, post=post
     )
