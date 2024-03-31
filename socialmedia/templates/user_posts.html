@@ -1,16 +1,6 @@
-{% extends 'base.html' %} {% block content %}
-<div class="form-container">
-  <form method="post" action="{{url_for('add_new_post')}}">
-    {{form.hidden_tag()}}
-    <h2 class="label">New Post</h2>
-    <div class="form-group">
-      <div class="form-username">{{form.title.label}}{{form.title}}</div>
-      <div class="form-username">{{form.content.label}}{{form.content}}</div>
-      <div class="form-submit">{{form.submit}}</div>
-    </div>
-  </form>
-</div>
+{% extends "base.html" %} {% block content %}
 <div class="container">
+  <h1 class="label">Posts by {{ user.username }}</h1>
   {% for post in posts %}
   <div class="section card">
     <h3 class="card-title">
@@ -26,12 +16,7 @@
       Posted By:
       <a
         href="{{url_for('get_user_posts', user_id=post.author.id)}}"
-        style="
-          color: black;
-          text-decoration: none;
-          font-weight: bold;
-          font-size: large;
-        "
+        style="color: black"
       >
         {{post.author.username}}
       </a>
@@ -63,6 +48,5 @@
       </a>
     </div>
   </div>
-  {% endfor %}
 </div>
-{% endblock content %}
+{% endfor %} {% endblock %}
