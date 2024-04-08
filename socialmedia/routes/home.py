@@ -24,7 +24,7 @@ def home():
     if posts is None:
         posts = []
     return render_template(
-        "home.html", posts=posts, title="SocialMedia - Home", form=form, likes=likes
+        "home.html", posts=posts, title="SocialHub - Home", form=form, likes=likes
     )
 
 
@@ -44,7 +44,7 @@ def register():
         db.session.commit()
         flash("Your profile has been created! You are now able to log in", "success")
         return redirect(url_for("login"))
-    return render_template("register.html", title="SocialMedia - Register", form=form)
+    return render_template("register.html", title="SocialHub - Register", form=form)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -60,7 +60,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for("home"))
         else:
             flash("Login Unsuccessful. Please check email and password", "danger")
-    return render_template("login.html", title="SocialMedia - Login", form=form)
+    return render_template("login.html", title="SocialHub - Login", form=form)
 
 
 @app.route("/logout")
@@ -102,5 +102,5 @@ def profile():
         "static", filename="profilepictures/" + current_user.image_file
     )
     return render_template(
-        "profile.html", title="SocialMedia - Profile", image_file=image_file, form=form
+        "profile.html", title="SocialHub - Profile", image_file=image_file, form=form
     )

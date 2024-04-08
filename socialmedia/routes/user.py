@@ -7,4 +7,5 @@ from socialmedia.models import Post, User
 def get_user_posts(user_id):
     posts = Post.query.filter_by(user_id=user_id).all()
     user = User.query.get(user_id)
-    return render_template("user_posts.html", posts=posts, user=user)
+    title = "SocialHub - " + user.username
+    return render_template("user_posts.html", posts=posts, user=user, title=title)
