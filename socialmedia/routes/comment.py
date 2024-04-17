@@ -4,6 +4,11 @@ from socialmedia.models import Comment, Post
 from flask_login import current_user, login_required
 from socialmedia.forms import CommentForm
 
+"""
+new comment
+This page allows the user to create a new comment.
+"""
+
 
 @app.route("/post/<int:post_id>/comment", methods=["POST"])
 @login_required
@@ -14,6 +19,12 @@ def new_comment(post_id):
     db.session.commit()
     flash("Your comment has been added!", "success")
     return redirect(url_for("get_post_by_id", post_id=post_id))
+
+
+"""
+update comment
+This page allows the user to update a comment.
+"""
 
 
 @app.route("/comment/<int:comment_id>/update", methods=["GET", "POST"])
@@ -33,6 +44,12 @@ def update_comment(comment_id):
     return render_template(
         "update_comment.html", title="Update Comment", form=form, comment=comment
     )
+
+
+"""
+delete comment
+This page allows the user to delete a comment.
+"""
 
 
 @app.route("/post/<int:post_id>/comment/<int:comment_id>/delete", methods=["POST"])

@@ -1,10 +1,6 @@
 """
-TODO: 
-1. Create a form for the user to create a new post
-2. Create a form for the user to create a new comment
-3. Create a form for the user to register
-4. Create a form for the user to login
-5. Create a form for the user to update their account
+This module contains the forms for the social media application. The forms are used to
+validate user input and display error messages if the input is invalid.
 """
 
 from flask_wtf import FlaskForm
@@ -20,6 +16,11 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from socialmedia.models import User
 from flask_login import current_user
 
+"""
+post form
+This form is used to create a new post.
+"""
+
 
 class PostForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
@@ -27,9 +28,21 @@ class PostForm(FlaskForm):
     submit = SubmitField("Post")
 
 
+"""
+comment form
+This form is used to create a new comment.
+"""
+
+
 class CommentForm(FlaskForm):
     content = TextAreaField("Content", validators=[DataRequired()])
     submit = SubmitField("Comment")
+
+
+"""
+registration form
+This form is used to register a new user.
+"""
 
 
 class RegistrationForm(FlaskForm):
@@ -58,11 +71,23 @@ class RegistrationForm(FlaskForm):
             )
 
 
+"""
+login form
+This form is used to login a user.
+"""
+
+
 class LoginForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
     remember = BooleanField("Remember Me", default=False)
     submit = SubmitField("Login")
+
+
+"""
+update profile form
+This form is used to update a user's profile.
+"""
 
 
 class UpdateProfileForm(FlaskForm):

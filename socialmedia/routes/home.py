@@ -12,6 +12,11 @@ from socialmedia.forms import (
     PostForm,
 )
 
+"""
+Home Page
+This is the main page of the application. It displays all the posts that have been created by the users.
+"""
+
 
 @app.route("/")
 @app.route("/home")
@@ -26,6 +31,13 @@ def home():
     return render_template(
         "home.html", posts=posts, title="SocialHub - Home", form=form, likes=likes
     )
+
+
+"""
+Register Page
+This page allows the user to register for the application.
+The user is required to enter a username, email, and password.
+"""
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -47,6 +59,12 @@ def register():
     return render_template("register.html", title="SocialHub - Register", form=form)
 
 
+"""
+Login Page
+This page allows the user to login to the application.
+"""
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
@@ -63,10 +81,22 @@ def login():
     return render_template("login.html", title="SocialHub - Login", form=form)
 
 
+"""
+Logout Page
+"""
+
+
 @app.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for("home"))
+
+
+"""
+save picture
+
+algorithm to save the picture
+"""
 
 
 def save_picture(form_picture):
@@ -80,6 +110,12 @@ def save_picture(form_picture):
     i.thumbnail(output_size)
     i.save(picture_path)
     return picture_fn
+
+
+"""
+profile page
+This page allows the user to update their profile information.
+"""
 
 
 @app.route("/profile", methods=["GET", "POST"])

@@ -4,6 +4,11 @@ from socialmedia.models import Post, Comment, likes
 from flask_login import current_user, login_required
 from socialmedia.forms import CommentForm, PostForm
 
+"""
+new post page
+This page allows the user to create a new post.
+"""
+
 
 @app.route("/post/new", methods=["POST"])
 @login_required
@@ -15,6 +20,12 @@ def add_new_post():
     db.session.commit()
     flash("Your post has been created!", "success")
     return redirect(url_for("home"))
+
+
+"""
+find post by id
+This page allows the user to view a post by its id.
+"""
 
 
 @app.route("/post/<int:post_id>", methods=["GET"])
@@ -33,6 +44,12 @@ def get_post_by_id(post_id):
     )
 
 
+"""
+like post
+This page allows the user to like a post.
+"""
+
+
 @app.route("/post/<int:post_id>/like", methods=["POST"])
 @login_required
 def like_post(post_id):
@@ -45,6 +62,12 @@ def like_post(post_id):
         db.session.commit()
         flash("You liked this post!", "success")
     return redirect(url_for("get_post_by_id", post_id=post_id))
+
+
+"""
+update post
+This page allows the user to update a post.
+"""
 
 
 @app.route("/post/<int:post_id>/update", methods=["POST", "GET"])
@@ -65,6 +88,12 @@ def update_post(post_id):
     return render_template(
         "update_post.html", title="Update Post", form=form, post=post
     )
+
+
+"""
+delete post
+This page allows the user to delete a post.
+"""
 
 
 @app.route("/post/<int:post_id>/delete", methods=["POST"])
