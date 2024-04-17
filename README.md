@@ -7,9 +7,9 @@ Deployed Site: [socialhub](https://portfolio-project-alx.onrender.com/)
 
 Final Project Blog Article: SocialHub: Connecting People Through Technology
 
-Author(s) LinkedIn:
-[Mohanned Sameh](https://linkedin.com/in/mohanned-sameh)
-[Zeyad Elnaggar](https://www.linkedin.com/in/zeyad-elnaggar/)
+Author(s) LinkedIn:</br>
+[Mohanned Sameh](https://linkedin.com/in/mohanned-sameh)</br>
+[Zeyad Elnaggar](https://www.linkedin.com/in/zeyad-elnaggar/)</br>
 [Mohamed Osama](https://www.linkedin.com/in/mohamed-osama2003/)
 
 Installation:
